@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useState, useEffect } from "react";
 
 import CartContext from "../../store/cart-context";
 import Modal from "../UI/Modal";
@@ -17,13 +17,19 @@ const Cart = (props) => {
     }
   });
 
-  const uniqueCartItems = Object.values(distinctItems);
+  let uniqueCartItems = Object.values(distinctItems);
+
+  const deleteItemFromCart = (id) => {
+    cartCtx.removeItem(id);
+    console.log(cartCtx.items);
+  };
 
   const cartItems = (
     <ul className={classes["cart-items"]}>
       {uniqueCartItems.map((item) => (
         <li key={item.id}>
           Name:{item.name} ,Price:{item.price} ,Quantity:{item.quantity}
+          <button onClick={() => deleteItemFromCart(item.id)}>-</button>
         </li>
       ))}
     </ul>

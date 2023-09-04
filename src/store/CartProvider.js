@@ -8,7 +8,13 @@ const CartProvider = (props) => {
     updateItems([...items, item]);
   };
 
-  const removeItemFromCartHandler = (id) => {};
+  const removeItemFromCartHandler = (id) => {
+    const updatedItemsAfterDeletion = items.map((item) => {
+      item.quantity = +item.quantity - 1;
+      return item.id !== id && item.quantity > 0;
+    });
+    updateItems([...updatedItemsAfterDeletion]);
+  };
 
   const cartContext = {
     items: items,
